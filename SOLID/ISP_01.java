@@ -2,38 +2,40 @@ package SOLID;
 
 public class ISP_01 {
 
-    /*
-     * TASK:
-     * This SimplePrinter is not a multi functional printer but a very
-     * simple one.
-     * Please fix this to obey the ISP (Interface Segregation Principle)!
-     */
-    
     public static interface Printer {
-        void printDocument();
+        void printDocument();   
+    }
+// Interface for devices that can scan
+    public static interface Scanner {
         void scanDocument();
-        void faxDocument();    
+    }
+// Interface for devices that can send faxes
+    public static interface Fax {
+        void faxDocument();
     }
 
-    public static class SimplePrinter implements Printer {
+// A class that implements all three interfaces
+    public static class MultiFunctionPrinter implements Printer, Scanner, Fax {
         @Override
         public void printDocument() {
-            System.out.println("Sending document to the printer ...");
+            System.out.println("Sending document to the printer");
         }
 
         @Override
         public void scanDocument() {
-            throw new UnsupportedOperationException("Unimplemented method 'scanDocument'");
+            System.out.println("Scanning document");
         }
 
         @Override
         public void faxDocument() {
-            throw new UnsupportedOperationException("Unimplemented method 'faxDocument'");
-        }        
+            System.out.println("Faxing document");
+        }
     }
 
     public static void main(String[] args) {
-        SimplePrinter printer = new SimplePrinter();
-        printer.printDocument();
+        MultiFunctionPrinter multiFunctionPrinter = new MultiFunctionPrinter();
+        multiFunctionPrinter.printDocument();
+        multiFunctionPrinter.scanDocument();        
+        multiFunctionPrinter.faxDocument();
     }
 }

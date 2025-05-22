@@ -27,21 +27,26 @@ public class SRP_01 {
         public String getEmail() {
             return email;
         }
-
-        public void saveToFile() {
-            try (FileWriter fileWriter = new FileWriter(name + ".txt")) {
-                fileWriter.write("Name: " + name + "\n");
-                fileWriter.write("Email: " + email + "\n");
-                System.out.println("User data saved successfully!");
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+        public static class UserFileHandler {
+            public void save(User user) {
+                String name = user.getName();
+                String email = user.getEmail();
+                try (FileWriter fileWriter = new FileWriter(name + ".txt")) {
+                    fileWriter.write("Name: " + name + "\n");
+                    fileWriter.write("Email: " + email + "\n");
+                    System.out.println("User data saved successfully");
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
             
     public static void main(String[] args) {
         User user = new User("Clemens", "clemens@company.com");
-        user.saveToFile();
+        User.UserFileHandler userFileHandler = new User.UserFileHandler();
+        userFileHandler.save(user);
+    
     }
 }

@@ -10,31 +10,38 @@ public class LSP_02 {
      */
 
     public static class Bird {
-        public void fly() {
-            System.out.println("The bird is flying...");
+       public void eat() {
+            System.out.println("The bird is eating");
         }
     }
+    public interface Fly {
+        void fly();
+        
+    }
 
-    public static class Sparrow extends Bird {
+    public static class Sparrow extends Bird implements Fly {
         @Override
         public void fly() {
-            System.out.println("The sparrow is flying...");
+            System.out.println("The sparrow is flying");
         }
     }
 
     public static class Penguin extends Bird {
-        @Override
-        public void fly() {
-            throw new UnsupportedOperationException("Penguins can't fly :(");
+    }
+       public static void move(Fly flyingBird) {
+            flyingBird.fly();
         }
-    }
-
-    public static void move(Bird bird) {
-        bird.fly();
-    }
+    
+        public static void eat(Bird bird) {
+            bird.eat();   
+        }
 
     public static void main(String[] args) {
-        move(new Sparrow());
-        move(new Penguin());
+        Sparrow sparrow = new Sparrow();
+        Penguin penguin = new Penguin();
+
+        move(sparrow); 
+        eat(sparrow);
+        eat(penguin); 
     }
 }

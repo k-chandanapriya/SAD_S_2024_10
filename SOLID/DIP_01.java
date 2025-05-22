@@ -2,13 +2,15 @@ package SOLID;
 
 public class DIP_01 {
 
-    /*
-     * TASK:
-     * The Switch is violating the DIP (Dependency Inversion Principle).
-     * Please fix this!
-     */
+   //Abstraction (interface)
+    public interface deviceoperation {
+        void turnOn();
+        void turnOff();
     
-    public static class LightBulb {
+        
+    }
+    //Low-level module:lightbulb implementing the interface
+    public static class LightBulb implements deviceoperation {
         public void turnOn() {
             System.out.println("Light is ON!");
         }
@@ -16,17 +18,18 @@ public class DIP_01 {
             System.out.println("Light is OFF!");
         }
     }
-
+    //High-level module: switch depending on the abstraction
     public static class Switch {
-        private LightBulb lightBulb;
+        private deviceoperation device;
 
         // this is "Dependency Injection" (composition style)
-        public Switch(LightBulb lightBulb) {
-            this.lightBulb = lightBulb;
+        public Switch(deviceoperation device) {
+            this.device = device;
+            
         }
 
         public void operate() {
-            lightBulb.turnOn();
+            device.turnOn();
         }
     }
 
